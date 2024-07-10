@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editor de Texto con Gráficas</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        textarea {
+            width: 40%;
+            height: auto;
+            background-color: #111;
+            color: #00ff00;
+            border: 10px;
+            outline: none;
+            outline-color: aqua;
+            resize: both;
+            z-index: 1;
+        }
+
+        .hacker-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            user-select: none;
+            z-index: -1;
+            overflow: hidden;
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        .hacker-text:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            user-select: none;
+            z-index: -1;
+            background-color: #000;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="editor" rows="10" oninput="autoResize()"></textarea>
+    <div class="hacker-text" id="hackerText"></div>
+
+    <script>
+        function autoResize() {
+            var editor = document.getElementById("editor");
+            editor.style.height = "auto";
+            editor.style.height = editor.scrollHeight + "px";
+        }
+
+        function generateHackerText() {
+            var hackerText = document.getElementById("hackerText");
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{};':\",.<>/?\\|";
+            var binary = "01";
+            var text = "";
+
+            for (var i = 0; i < 10000; i++) {
+                text += characters.charAt(Math.floor(Math.random() * characters.length));
+                text += binary.charAt(Math.floor(Math.random() * binary.length));
+            }
+
+            hackerText.textContent = text;
+        }
+
+        // Cambia aleatoriamente el texto de las gráficas cada 1 segundo
+        setInterval(generateHackerText, 1000);
+    </script>
+</body>
+</html>
